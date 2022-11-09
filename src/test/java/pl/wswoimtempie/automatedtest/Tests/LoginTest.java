@@ -6,12 +6,14 @@ import org.testng.annotations.Test;
 import pl.wswoimtempie.automatedtest.Pages.HomePage;
 import pl.wswoimtempie.automatedtest.Pages.LoginPage;
 
+import java.net.MalformedURLException;
+
 public class LoginTest extends BaseTest {
 
     @Test(dataProvider = "data-provider")
-    public void LoginWithErrorDataTest(String email, String pass, String errorMessage) {
+    public void LoginWithErrorDataTest(String email, String pass, String errorMessage) throws MalformedURLException {
 
-        LoginPage loginPage = new HomePage(driver).avatarLoginClick()
+        LoginPage loginPage = new HomePage().avatarLoginClick()
                 .setEmail(email)
                 .setPass(pass)
                 .logInClickButton();

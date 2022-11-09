@@ -1,27 +1,29 @@
 package pl.wswoimtempie.automatedtest.Pages;
 
-import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pl.wswoimtempie.automatedtest.utils.DriverFactory;
+
+import java.net.MalformedURLException;
 
 public class LoginPage {
 
-    public LoginPage(AndroidDriver driver) {
-        PageFactory.initElements(driver, this);
+    public LoginPage() throws MalformedURLException {
+        PageFactory.initElements(DriverFactory.getDriver(), this);
     }
 
     @FindBy(id = "com.phptravelsnative:id/input_email")
-    public WebElement inputEmailId;
+    private WebElement inputEmailId;
 
     @FindBy(id = "com.phptravelsnative:id/input_password")
-    public WebElement inputPasswordId;
+    private WebElement inputPasswordId;
 
     @FindBy(id = "com.phptravelsnative:id/btn_login")
-    public WebElement loginButtonId;
+    private WebElement loginButtonId;
 
     @FindBy(xpath = "//android.widget.Toast[contains(@text, 'Login')]")
-    public WebElement toastMessageXp;
+    private WebElement toastMessageXp;
 
 
     public LoginPage setEmail(String email) {
@@ -42,6 +44,7 @@ public class LoginPage {
     }
 
     public String getToastMessage() {
+
         return toastMessageXp.getText();
     }
 }

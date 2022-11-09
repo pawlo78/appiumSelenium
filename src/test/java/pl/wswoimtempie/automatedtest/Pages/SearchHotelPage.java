@@ -1,70 +1,78 @@
 package pl.wswoimtempie.automatedtest.Pages;
 
-import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pl.wswoimtempie.automatedtest.utils.DriverFactory;
+
+import java.net.MalformedURLException;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class SearchHotelPage {
 
-    private AndroidDriver driver;
+    //
 
-    public SearchHotelPage(AndroidDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+    public SearchHotelPage() throws MalformedURLException {
+        PageFactory.initElements(DriverFactory.getDriver(), this);
     }
 
     @FindBy(xpath = "//android.widget.ImageView")
-    public WebElement hotelImage;
+    private WebElement hotelImage;
+
+    @FindBy(id = "com.phptravelsnative:id/searchplace")
+    private WebElement searchWhereCityString;
+
 
     @FindBy(id = "android:id/search_src_text")
-    public WebElement searchCityInput;
+    private WebElement searchCityInput;
 
     @FindBy(id = "com.phptravelsnative:id/top")
-    public WebElement firstResult;
+    private WebElement firstResult;
 
     @FindBy(id = "com.phptravelsnative:id/dateselectedfrom")
-    public WebElement openCalendar;
-
-    @FindBy(xpath = "//android.widget.TextView[@text = '15']")
-    public WebElement checkInData;
-
-    @FindBy(xpath = "//android.widget.TextView[@text = '18']")
-    public WebElement checkOutData;
+    private WebElement openCalendar;
 
     @FindBy(id = "com.phptravelsnative:id/search_done")
-    public WebElement doneButton;
+    private WebElement doneButton;
 
     @FindBy(id = "com.phptravelsnative:id/numberadults")
-    public WebElement openSetTravellers;
+    private WebElement openSetTravellers;
 
     @FindBy(id = "com.phptravelsnative:id/room_increase")
-    public WebElement roomIncrease;
+    private WebElement roomIncrease;
 
     @FindBy(id = "com.phptravelsnative:id/a_increase")
-    public WebElement adultIncrease;
+    private WebElement adultIncrease;
 
     @FindBy(id = "com.phptravelsnative:id/c_increase")
-    public WebElement childIncrease;
+    private WebElement childIncrease;
 
     @FindBy(id = "com.phptravelsnative:id/done")
-    public WebElement doneButtonInSearch;
+    private WebElement doneButtonInSearch;
 
     @FindBy(id = "com.phptravelsnative:id/search_Hotel")
-    public WebElement searchHotelButton;
+    private WebElement searchHotelButton;
 
 
     public SearchHotelPage setCity() {
         hotelImage.click();
+        searchWhereCityString.click();
         searchCityInput.sendKeys("Singa");
         firstResult.click();
         return this;
     }
 
-    public SearchHotelPage setDates() {
+    public SearchHotelPage setDates() throws MalformedURLException {
+        int checkingDay = new Date().toInstant().atZone(ZoneId.systemDefault()).getDayOfMonth();
+        int checkoutDay = checkingDay + 2;
+        By checkinDaySel = By.xpath("//android.widget.TextView[@text = '" + checkingDay + "']");
+        By checkoutDaySel = By.xpath("//android.widget.TextView[@text = '" + checkoutDay + "']");
+
         openCalendar.click();
-        checkInData.click();
-        checkOutData.click();
+        DriverFactory.getDriver().findElement(checkinDaySel).click();
+        DriverFactory.getDriver().findElement(checkoutDaySel).click();
         doneButton.click();
         return this;
     }
@@ -77,9 +85,9 @@ public class SearchHotelPage {
         return this;
     }
 
-    public SearchHotelResultPage performSearch() {
+    public SearchHotelResultPage performSearch() throws MalformedURLException {
         doneButtonInSearch.click();
         searchHotelButton.click();
-        return new SearchHotelResultPage(driver);
+        return new SearchHotelResultPage(DriverFactory.getDriver());
     }
 }

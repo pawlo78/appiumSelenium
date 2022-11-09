@@ -1,32 +1,40 @@
 package pl.wswoimtempie.automatedtest.Pages;
 
-import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pl.wswoimtempie.automatedtest.utils.DriverFactory;
+
+import java.net.MalformedURLException;
 
 public class HomePage {
 
-    private AndroidDriver driver;
-
-    public HomePage(AndroidDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+    public HomePage() throws MalformedURLException {
+        PageFactory.initElements(DriverFactory.getDriver(), this);
     }
 
     @FindBy(id = "com.phptravelsnative:id/testuserrr")
-    public WebElement userAvatar;
+    private WebElement userAvatar;
 
     @FindBy(xpath = "//android.widget.TextView[@text = 'HOTELS']/..")
-    public WebElement inputHotels;
+    private WebElement inputHotels;
 
-    public LoginPage avatarLoginClick() {
+    @FindBy(id = "com.phptravelsnative:id/sidedrawer")
+    private WebElement menuButton;
+
+    public LoginPage avatarLoginClick() throws MalformedURLException {
         userAvatar.click();
-        return new LoginPage(driver);
+        return new LoginPage();
     }
 
-    public SearchHotelPage hotelsClick() {
+    public SearchHotelPage hotelsClick() throws MalformedURLException {
         inputHotels.click();
-        return new SearchHotelPage(driver);
+        return new SearchHotelPage();
     }
+
+    public SettingsPage openMenu() throws MalformedURLException {
+        menuButton.click();
+        return new SettingsPage();
+    }
+
 }
