@@ -1,8 +1,7 @@
 package pl.wswoimtempie.automatedtest.utils;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
+import io.qameta.allure.Attachment;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -18,5 +17,10 @@ public class AppiumHelper {
                 .withTimeout(Duration.ofSeconds(5)).pollingEvery(Duration.ofSeconds(1));
 
         wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    @Attachment
+    public static byte[] takeScreenShot() throws MalformedURLException {
+        return ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.BYTES);
     }
 }

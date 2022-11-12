@@ -1,5 +1,7 @@
 package pl.wswoimtempie.automatedtest.Tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pl.wswoimtempie.automatedtest.Pages.HomePage;
@@ -12,7 +14,6 @@ public class SearchHotelTest extends BaseTest {
 
     @Test(priority = 1)
     public void searchHotel() throws MalformedURLException {
-
         SearchHotelResultPage searchHotelPage = new HomePage()
                 .hotelsClick()
                 .setCity()
@@ -27,6 +28,8 @@ public class SearchHotelTest extends BaseTest {
     }
 
     @Test
+    @Feature("Feature")
+    @Description("Log in with invalid password ")
     public void setSettingsTest() throws MalformedURLException {
         SettingsPage settingsPage = new HomePage()
                 .openMenu().setSettings();

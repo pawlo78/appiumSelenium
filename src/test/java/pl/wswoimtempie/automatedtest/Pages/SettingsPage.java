@@ -34,7 +34,6 @@ public class SettingsPage {
     @FindBy(id = "com.phptravelsnative:id/back")
     private WebElement settingsExitButton;
 
-
     public SettingsPage setSettings() {
         settingsButton.get(6).click();
         inputLanguage.click();

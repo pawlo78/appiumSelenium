@@ -1,5 +1,7 @@
 package pl.wswoimtempie.automatedtest.Tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -11,6 +13,8 @@ import java.net.MalformedURLException;
 public class LoginTest extends BaseTest {
 
     @Test(dataProvider = "data-provider")
+    @Feature("Feature")
+    @Description("Log in with invalid password ")
     public void LoginWithErrorDataTest(String email, String pass, String errorMessage) throws MalformedURLException {
 
         LoginPage loginPage = new HomePage().avatarLoginClick()
